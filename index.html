@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FileWrite | Client-Server</title>
+</head>
+<body>
+	<style type="text/css">
+		.center{
+			position: absolute;
+			left: 5%; top: 10%; right: 5%; bottom: 23%;
+
+		}
+		.text_area{
+			font-size: 45px;
+			font-style: unset;
+			text-align: center;
+			border: none;
+		}
+		.btn_ctr{
+			margin-left: 45%;
+			margin-top: 40%
+		}
+		.btn{
+			border-radius: 8px;
+			border: 4px solid #008cba;
+			size: 10px;
+			padding-top: 1%;
+			padding-bottom: 1%;
+			padding-right: 1%;
+			padding-left: 1%;
+			font-size: 25px;
+			background-color: #ffffff;
+			font-style: monospace;
+			outline: none;
+		}
+	</style>
+	<div class="center" id="center">
+		<textarea class="text_area" id="text_area" rows="8" cols="45" placeholder="What's the content dude!"></textarea>
+	</div>
+	<div class="btn_ctr" >
+		<button onclick="clicked()" class="btn" type="button" id="btn">Submit</button>
+	</div>
+
+	<script type="text/javascript">
+		var area_text,btn_click;
+		area_text = document.getElementById("text_area")
+		btn_click = document.getElementById("btn")
+		function clicked(){
+			write_that(area_text.value);
+		}
+		var write_that = function(ar){
+			fetch("/write?e="+ar).then(function(response){
+				response.json().then(function(data){
+					reflect(data);
+				});
+			});
+		}
+
+		var reflect = function(data){
+			if(!data.ok){
+				switch(data.msg){
+					case "Missing_Expression" : area_text.value = "Expression is missing pal!";
+					case "Empty_Expression" : area_text.value = "Dude , write the data for a file to store";
+				}
+			}
+			else{
+				area_text.value = "Congo , File Saved"
+			}
+		}
+	</script>	
+</body>
+</html>
