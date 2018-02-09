@@ -36,7 +36,7 @@ def _write():
 	else:	
 		f=open(file_name,"w")
 		f.write(args["e"])
-		f.close
+		f.close()
 		return jsonify({
 			"ok" : True,
 			"msg" : "File Saved"
