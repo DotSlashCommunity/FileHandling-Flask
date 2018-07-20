@@ -1,0 +1,4 @@
+[cli]
+bears = PEP8Bear
+files = server.py,index.html
+use_spaces = False
